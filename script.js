@@ -96,3 +96,18 @@ function checkCollision() {
         result.textContent = 'You found the key! Now get to the door! 🚪';
     } else if (playerPos.x === doorPos.x && playerPos.y === doorPos.y && hasKey) {
         result.textContent = 'You escaped! 🎉';
+        document.removeEventListener('keydown', movePlayer);
+        gameEnded = true;
+    }
+}
+
+function movePlayer(event) {
+    const newPos = { ...playerPos };
+    switch (event.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+            newPos.y -= 1;
+            break;
+        case 'ArrowDown':
+        case '
