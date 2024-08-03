@@ -18,7 +18,7 @@ function getRandomPosition() {
 }
 
 function positionsCollide(pos1, pos2) {
-    return pos1.x === pos2.x && pos2.y === pos1.y;
+    return pos1.x === pos2.x && pos1.y === pos2.y;
 }
 
 function initializePositions() {
@@ -96,55 +96,3 @@ function checkCollision() {
         result.textContent = 'You found the key! Now get to the door! 🚪';
     } else if (playerPos.x === doorPos.x && playerPos.y === doorPos.y && hasKey) {
         result.textContent = 'You escaped! 🎉';
-        document.removeEventListener('keydown', movePlayer);
-        gameEnded = true;
-    }
-}
-
-function movePlayer(event) {
-    const newPos = { ...playerPos };
-    switch (event.key) {
-        case 'ArrowUp':
-        case 'w':
-        case 'W':
-            newPos.y -= 1;
-            break;
-        case 'ArrowDown':
-        case 's':
-        case 'S':
-            newPos.y += 1;
-            break;
-        case 'ArrowLeft':
-        case 'a':
-        case 'A':
-            newPos.x -= 1;
-            break;
-        case 'ArrowRight':
-        case 'd':
-        case 'D':
-            newPos.x += 1;
-            break;
-    }
-    if (validMove(newPos)) {
-        playerPos = newPos;
-        updatePosition(player, playerPos);
-        checkCollision();
-    }
-}
-
-function startGame() {
-    initializePositions();
-    updatePosition(player, playerPos);
-    updatePosition(chicken, chickenPos);
-    updatePosition(key, keyPos);
-    updatePosition(door, doorPos);
-    key.style.display = 'block';
-    result.textContent = '';
-    gameEnded = false;
-    hasKey = false;
-
-    document.addEventListener('keydown', movePlayer);
-    setInterval(moveChicken, 500);
-}
-
-startGame();
